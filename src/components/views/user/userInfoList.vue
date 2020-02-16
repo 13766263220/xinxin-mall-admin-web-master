@@ -159,10 +159,15 @@
 					this.userTable.loading = false;
 				});
 			},
-			statusChange(userInfo){
+			statusChange(userInfo){//修改用户状态
+				var data = {
+					userInfo:userInfo,
+					role:'admin'
+				}
+				
 				//查询post请求
 				this.$http
-				.put('/api/userInfo',userInfo)
+				.put('/api/userInfo',data)
 				.then(response => {
 					console.log(response.data)
 					if(response.data.code == 200){

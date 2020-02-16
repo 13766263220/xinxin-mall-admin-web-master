@@ -186,7 +186,7 @@
 					<span v-else>{{scope.row.sale}}</span>
 				  </template>
 				</el-table-column>
-				<el-table-column
+				<!-- <el-table-column
 				  prop="stock"
 				  label="总库存"
 				  width="100">
@@ -194,7 +194,7 @@
 					<span v-if="scope.row.stock == null">0</span>
 					<span v-else>{{scope.row.stock}}</span>
 				  </template>
-				</el-table-column>
+				</el-table-column> -->
 				<el-table-column
 				  label="操作"
 				  width="160">
@@ -663,13 +663,22 @@
 				var result = data;
 				//赋字段
 				cols.length = 0; //清空字段
+				
 				for(var spec in JSON.parse(infos[0].productSpecs)){
+					if(spec=='productId'){
+						continue
+					}
+					
 					cols.push({ label: spec, prop: spec})
 				}
 				//赋值
 				for(var i in infos){
 					var specs = JSON.parse(infos[i].productSpecs);
 					for(var spec in specs){
+						// if(i == 0){
+						// 	continue
+						// }
+						
 						result[i][spec] = specs[spec];//添加字段名和值
 					}
 				}
@@ -685,8 +694,13 @@
 					console.log(response.data.data)
 					if(response.data.data.length != 0){
 						//掉自定义组件
+						var result = response.data.data;
+						delete result.parentId;
+						
+						console.log(result)
+						
 						this.stockTable.stockInfo = this.customField(
-							response.data.data,
+							result,
 							this.stockTable.stockCols
 						);
 					}else{
@@ -707,7 +721,6 @@
 				});
 			},
 			showStockDialog(product){//打开SKU库存模态框
-				// alert(productId);
 				this.stockDialogParam.show = true;
 				
 				//先把类型id存起,（用于查询属性）
@@ -733,12 +746,14 @@
 						return;
 					}
 					if(this.stockAddDialogParam.productAttr.length == this.stockTable.stockCols.length){
+						
 						for(var i in this.stockTable.stockCols){
 							if(this.stockTable.stockCols[i].label != this.stockAddDialogParam.productAttr[i].name){
 								this.$message({
 									message: '请确认商品属性是否正确',
 									type: 'error'
 								});
+								alert()
 								return;
 							}
 						}
@@ -774,8 +789,10 @@
 
 				var attrs = this.stockAddDialogParam.productAttr;
 				this.stockAddDialogParam.productSpecs[attrs[attrIndex].name] = this.stockAddDialogParam.radio[attrIndex];
+				
+				
 			},
-			insertStock(){//确认添加发生
+			insertStock(){//确认添加sku发生
 				this.$refs["stockAddForm"].validate(valid => {//判断校验是否成功
 					if(valid){
 						//判断是否选够属性
@@ -791,9 +808,12 @@
 							
 							//属性按照中文排序
 							var productSpecs = {};
+							productSpecs.productId = this.stockAddDialogParam.productId;
+							
 							Object.keys(this.stockAddDialogParam.productSpecs).sort().map(key => {
 							  productSpecs[key]=this.stockAddDialogParam.productSpecs[key]
 							})
+							console.log(productSpecs)
 							
 							var data={
 								productId:this.stockAddDialogParam.productId,//商品id
@@ -1004,7 +1024,7 @@
 				//添加
 				productForm:{//insert into pms_product(name, price, pic, brand_id, product_category_id, sale, stock, low_stock, unit, publish_status, new_status, recommand_status, description)values ('华为 HUAWEI P20',3788,'http://localhost:8080/file/download?filename=华为pic.jpg',3,12,null,null,null,'部',1,0,1,'华为手机666');
 					name:null,//商品名称
-					price:null,
+					price:0,
 					categoryInfo:{//商品类型
 						value:[],
 						options:[]

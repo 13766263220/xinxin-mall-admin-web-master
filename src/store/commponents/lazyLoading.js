@@ -43,17 +43,25 @@ const dynamicRouter = [
     path: '/orderFormList',  //订单列表
     component: resolve => require(['@/components/views/orderForm/orderFormList'], resolve)
   },
-  {
-    path: '/orderFormSetting',  //订单设置
-    component: resolve => require(['@/components/views/orderForm/orderFormSetting'], resolve)
-  },
-  {
-    path: '/salesReturnRequest',  //退货申请处理
-    component: resolve => require(['@/components/views/orderForm/salesReturnRequest'], resolve)
-  },
+  // {
+  //   path: '/orderFormSetting',  //订单设置
+  //   component: resolve => require(['@/components/views/orderForm/orderFormSetting'], resolve)
+  // },
+  // {
+  //   path: '/salesReturnRequest',  //退货申请处理
+  //   component: resolve => require(['@/components/views/orderForm/salesReturnRequest'], resolve)
+  // },
 	{
-	  path: '/userInfoList',  //退货申请处理
+	  path: '/userInfoList',  //用户信息
 	  component: resolve => require(['@/components/views/user/userInfoList'], resolve)
+	},
+	{
+	  path: '/adminInfoList',  //管理员信息
+	  component: resolve => require(['@/components/views/admin/adminInfoList'], resolve)
+	},
+	{
+	  path: '/userAuthorization',  //角色授权
+	  component: resolve => require(['@/components/views/admin/userAuthorization'], resolve)
 	}
 ]
 export { lazy }

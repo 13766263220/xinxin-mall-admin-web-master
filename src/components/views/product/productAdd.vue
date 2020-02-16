@@ -9,14 +9,12 @@
 		
 	</div>
 	<product-detail v-show="showStatus[0]" @active="getActive" @productForm="getProductForm" ></product-detail>
-	<!-- <product-attr-detail v-show="showStatus[1]" :categoryId="categoryId" @active="getActive"></product-attr-detail> -->
 	
   </div>
 </template>
 
 <script>
 import ProductDetail from './detail/ProductDetail.vue';
-import ProductAttrDetail from './detail/ProductAttrDetail.vue';
 export default {
 	mounted(){
 		//this.$refs.box.scrollTop = 0;
@@ -29,7 +27,7 @@ export default {
 		categoryId:0
 	  }
     },
-	components: {ProductDetail,ProductAttrDetail},
+	components: {ProductDetail},
     methods: {
 	  getActive(active){//第几步
 			for(var i = 0;i<2;i++){

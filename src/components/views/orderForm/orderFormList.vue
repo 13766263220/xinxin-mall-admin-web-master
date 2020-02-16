@@ -44,7 +44,7 @@
 				<el-table-column
 				  prop="userName"
 				  label="用户账号"
-				  width="80">
+				  width="120">
 				</el-table-column>
 				<el-table-column
 				  prop="totalAmount"
@@ -69,24 +69,20 @@
 				  label="订单状态"
 				  width="120">
 				  <template slot-scope="scope">
-						<span v-if="scope.row.payType == 0">待付款</span>
-						<span v-else-if="scope.row.payType == 1">待发货</span>
-						<span v-else-if="scope.row.payType == 2">已发货</span>
-						<span v-else-if="scope.row.payType == 3">已完成</span>
-						<span v-else-if="scope.row.payType == 4">已关闭</span>
-						<span v-else-if="scope.row.payType == 5">无效订单</span>
+						<span v-if="scope.row.status == 0">待付款</span>
+						<span v-else-if="scope.row.status == 1">待发货</span>
+						<span v-else-if="scope.row.status == 2">已发货</span>
+						<span v-else-if="scope.row.status == 3">已完成</span>
+						<span v-else-if="scope.row.status == 4">已关闭</span>
 				  </template>
 				</el-table-column>
 				<el-table-column
 				  label="操作"
 				  width="200">
 				  <template slot-scope="scope">
-						<el-button size="mini" @click="">查看订单</el-button>
-						<el-button v-if="scope.row.status == 1" size="mini" @click="">订单发货</el-button>
-						<el-button v-else-if="scope.row.status == 2" size="mini" @click="">订单跟踪</el-button>
-						<el-button v-else-if="scope.row.status == 3" size="mini" @click="">订单跟踪</el-button>
-						<el-button v-else-if="scope.row.status == 4" type="danger" size="mini" @click="">删除订单</el-button>
-						<el-button v-else-if="scope.row.status == 5" type="danger" size="mini" @click="">删除订单</el-button>
+					<el-button size="mini" @click="">查看订单</el-button>
+					<el-button v-if="scope.row.status == 1" size="mini" @click="editOrderFrom(2,scope.row)">订单发货</el-button>
+					<el-button v-else-if="scope.row.status == 3" type="danger" size="mini" @click="editOrderFrom(4,scope.row)">关闭订单</el-button>
 				  </template>
 				</el-table-column>
 			</el-table>
@@ -150,6 +146,42 @@
 				this.orderPageInfo.pageSize = pageSize;
 				this.queryOrderAll();
 			},
+			editOrderFrom(status,orderForm){//修改订单状态
+				var confirm = null;
+				if(status == 2){
+					confirm = this.$confirm('确认要进行发货?', '提示', {
+						confirmButtonText: '确认',
+						cancelButtonText: '取消',
+						type: 'warning'
+					})
+				}else if(status == 4){
+					confirm = this.$confirm('确认要关闭订单?', '提示', {
+						confirmButtonText: '确认',
+						cancelButtonText: '取消',
+						type: 'warning'
+					})
+				}
+			
+				confirm.then(() => {
+				  orderForm.status = status;
+				  this.$http.put('/order/editOrderInfo',orderForm)
+				  .then(request => {
+				  	console.log(request.data)
+				  	if(request.data.code == '200'){
+				  		this.$message({
+				  			message: '操作成功',
+				  			type: 'success'
+				  		});
+				  		//刷新一遍
+				  		this.queryOrderAll()
+				  	}
+				  })
+				}).catch(() => {
+				  //（不做任何操作） 
+				});
+			
+				
+			}
 		},
 		data(){
 			return {

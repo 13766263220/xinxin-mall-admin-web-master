@@ -206,7 +206,6 @@
 				ref="formEdit"
 				class="demo-form-inline"
 				:rules="formEditRules"
-				:disabled="editDialogParam.formEditDisabled"
 				@submit.native.prevent
 			>
 				<el-form-item label="品牌名称:" prop="name">

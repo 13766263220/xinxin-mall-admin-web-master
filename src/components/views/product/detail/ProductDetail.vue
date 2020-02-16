@@ -36,9 +36,9 @@
 			<el-form-item label="商品售价:" prop="price">
 				<el-input v-model="productAddForm.price" placeholder="请输入商品售价" size="small" style="width: 300px;"></el-input>
 			</el-form-item>
-			<el-form-item label="商品库存:" prop="stock">
+			<!-- <el-form-item label="商品库存:" prop="stock">
 				<el-input v-model="productAddForm.stock" placeholder="请输入商品库存" size="small" style="width: 300px;"></el-input>
-			</el-form-item>
+			</el-form-item> -->
 			<el-form-item label="预警库存:" prop="lowStock">
 				<el-input v-model="productAddForm.lowStock" placeholder="请输入商品库存" size="small" style="width: 300px;"></el-input>
 			</el-form-item>
@@ -254,7 +254,7 @@
 				productAddForm:{//商品表单
 					name:null,//商品名称
 					price:0,//商品售价
-					stock:0,  //库存
+					//stock:0,  //库存
 					lowStock:0,  //预警库存
 					unit:"件",
 					categoryInfo:{//商品类型
@@ -284,9 +284,9 @@
 					price:[
 					  { required: true, message: "请输入商品售价", trigger: "blur" }
 					],
-					stock: [
-						{ required: true, message: '请输入商品库存', trigger: 'change' }
-					],
+					// stock: [
+					// 	{ required: true, message: '请输入商品库存', trigger: 'change' }
+					// ],
 					lowStock: [
 						{ required: true, message: '请输入预警库存', trigger: 'change' }
 					],
