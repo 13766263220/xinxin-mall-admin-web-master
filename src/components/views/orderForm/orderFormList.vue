@@ -3,10 +3,7 @@
 		<!-- 筛选搜索 start -->
 		<div style="border:1px #ebeef5 solid;margin-bottom: 20px;border-radius: 10px">
 			<br />
-			<i class="el-icon-search" style="margin-left: 20px;margin-right: 5px;"></i><span>筛选搜索</span>
-			
-			<el-button @click="" size="small" style="float: right;margin-right: 20px;margin-top: -5px;" type="primary">查询结果</el-button>
-			<el-button @click="" size="small" style="float: right;margin-right: 20px;margin-top: -5px;">重置</el-button>
+			<i class="el-icon-tickets" style="margin-left: 20px;margin-right: 5px;"></i><span>数据列表</span>
 			<br /><br />
 			
 			<div style="margin-left: 90px;">

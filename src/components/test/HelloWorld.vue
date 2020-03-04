@@ -1,6 +1,6 @@
 <template>
     <div>
-		<h2>这是一个主页</h2>
+		<h2><欣欣购物商城> 后台管理</h2>
 	</div>
 </template>
 <script>

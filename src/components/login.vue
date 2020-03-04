@@ -22,6 +22,8 @@
 </template>
 <style lang="scss">
 ._login {
+	background-image: url(../assets/images/bg.jpg);
+	background-repeat: no-repeat;
   // border:1px solid red;
   height: 100%;
   width: 100%;
@@ -32,10 +34,10 @@
     // border:1px solid green;
     width: 460px;
     height: 300px;
-    margin-top: -150px;
     display: flex;
     justify-content: center;
     box-shadow: 0 0 25px #cac6c6;
+	background-color: #b7dde8;
     .form {
       // border:1px solid blue;
       width: 300px;
@@ -93,7 +95,7 @@ export default {
 			
 			sessionStorage.setItem("userName", result.adminInfo.userName); //用户名
 			sessionStorage.setItem("token", "111111"); //保存秘钥
-			sessionStorage.setItem("position", "超级管理员"); //用户职位
+			sessionStorage.setItem("position",result.position); //用户职位
 												
             //登陆成功跳转主页
             this.$router.replace({ path: "/index" });
